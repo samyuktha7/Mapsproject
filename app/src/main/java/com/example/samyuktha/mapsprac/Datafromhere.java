@@ -1,12 +1,14 @@
 package com.example.samyuktha.mapsprac;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by samyuktha on 9/11/2017.
  */
 
-public class Datafromhere {
+public class Datafromhere implements Parcelable {
 
     private Double latsdata;
     private Double lngsdata;
@@ -25,6 +27,45 @@ public class Datafromhere {
         this.opennow1=opennow;
         this.rating1=rating;
         this.vicinity1=vicinity;
+    }
+
+
+    public static final Creator<Datafromhere> CREATOR = new Creator<Datafromhere>() {
+        @Override
+        public Datafromhere createFromParcel(Parcel in) {
+            return new Datafromhere(in);
+        }
+
+        @Override
+        public Datafromhere[] newArray(int size) {
+            return new Datafromhere[size];
+        }
+    };
+
+    public Datafromhere(Parcel in) {
+
+        this.latsdata=in.readDouble();
+        this.lngsdata=in.readDouble();
+        this.icon1=in.readString();
+        this.name1=in.readString();
+        this.rating1=in.readDouble();
+        this.vicinity1=in.readString();
+
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+
+        dest.writeDouble(latsdata);
+        dest.writeDouble(lngsdata);
+        dest.writeString(icon1);
+        dest.writeString(name1);
+        dest.writeDouble(rating1);
+        dest.writeString(vicinity1);
+
+
     }
 
     public Double getLatsdata() {
@@ -54,4 +95,11 @@ public class Datafromhere {
     public String getVicinity1() {
         return vicinity1;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
 }
